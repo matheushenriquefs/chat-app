@@ -1,0 +1,9 @@
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fs-xsmall {
+  font-size: calc(var(--spacing) * 0.75);
+}
