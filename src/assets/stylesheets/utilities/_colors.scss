@@ -1,7 +1,9 @@
 .is-primary {
-  color: var(--primary);
+  color: $primary;
 }
 
-.is-bg-primary {
-  background-color: var(--primary);
+.is-bg {
+  &-primary {
+    background-color: $primary;
+  }
 }
