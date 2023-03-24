@@ -1,7 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ChatCard } from '@/modules/chat/components/ChatCard'
+</script>
 
 <template>
-  <main>
-    <h1>Home</h1>
+  <main class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4">
+        <ul>
+          <li>
+            <ChatCard />
+          </li>
+        </ul>
+      </div>
+    </div>
   </main>
 </template>
