@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ChatLayout } from '@/modules/chat/components/ChatLayout'
 import { ChatCard } from '@/modules/chat/components/ChatCard'
 
 const message = {
@@ -11,15 +12,13 @@ const message = {
 </script>
 
 <template>
-  <main class="container-fluid">
-    <div class="row">
-      <div class="col-lg-4">
-        <ul>
-          <li>
-            <ChatCard :message="message" />
-          </li>
-        </ul>
-      </div>
-    </div>
-  </main>
+  <ChatLayout>
+    <template #column-1>
+      <ul>
+        <li>
+          <ChatCard :message="message" />
+        </li>
+      </ul>
+    </template>
+  </ChatLayout>
 </template>
