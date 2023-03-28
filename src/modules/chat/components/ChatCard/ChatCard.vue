@@ -1,3 +1,30 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useDateTimeFacade } from '@/modules/core/composables/facades/useDateTimeFacade'
+
+const props = defineProps<{
+  message: {
+    id: number
+    content: string
+    type: string
+    date: string
+  }
+}>()
+
+const DateTime = useDateTimeFacade()
+
+const date = computed<string>(() => {
+  if (DateTime) {
+    return DateTime.intlFormat(DateTime.parseJSON(props.message.date), {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  }
+
+  return ''
+})
+</script>
+
 <template>
   <article class="row">
     <div class="col-3 pl-0">
@@ -12,13 +39,10 @@
     <div class="col-9 pr-0 pl-0">
       <div class="chat-card-header">
         <h6 class="mb-0">John Doe</h6>
-        <small class="fs-xsmall is-primary">7:50PM</small>
+        <small class="fs-xsmall is-primary">{{ date }}</small>
       </div>
       <div class="chat-card-body">
-        <small class="text-truncate"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nisl et odio tincidunt
-          imperdiet.</small
-        >
+        <small class="text-truncate">{{ props.message.content }}</small>
         <small class="chat-card-body-notification is-bg-primary fs-xsmall rounded-circle">9</small>
       </div>
     </div>
