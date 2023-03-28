@@ -26,8 +26,8 @@ const date = computed<string>(() => {
 </script>
 
 <template>
-  <article class="row">
-    <div class="col-3 pl-0">
+  <article class="">
+    <div class="column-1">
       <img
         class="rounded-circle"
         src="https://picsum.photos/id/454/48"
@@ -36,7 +36,7 @@ const date = computed<string>(() => {
         height="48"
       />
     </div>
-    <div class="col-9 pr-0 pl-0">
+    <div class="column-2">
       <div class="chat-card-header">
         <h6 class="mb-0">John Doe</h6>
         <small class="fs-xsmall is-primary">{{ date }}</small>
@@ -49,7 +49,28 @@ const date = computed<string>(() => {
   </article>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+article {
+  column-gap: var(--spacing);
+  display: flex;
+  padding: calc(var(--spacing) * 0.75);
+}
+
+.column {
+  &-1 {
+    align-self: center;
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: fit-content;
+  }
+
+  &-2 {
+    flex: 1 0 auto;
+    max-width: 100%;
+    width: 75%;
+  }
+}
+
 .chat-card {
   &-header {
     display: flex;
