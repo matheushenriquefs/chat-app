@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import { ChatCard } from '@/modules/chat/components/ChatCard'
+
+const message = {
+  id: new Date().getTime(),
+  content:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nisl et odio tincidunt imperdiet.',
+  type: 'text',
+  date: new Date().toISOString()
+}
 </script>
 
 <template>
@@ -8,7 +16,7 @@ import { ChatCard } from '@/modules/chat/components/ChatCard'
       <div class="col-lg-4">
         <ul>
           <li>
-            <ChatCard />
+            <ChatCard :message="message" />
           </li>
         </ul>
       </div>
