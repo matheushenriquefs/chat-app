@@ -1,0 +1,82 @@
+<template>
+  <section>
+    <header>
+      <div class="column-1">
+        <img
+          class="rounded-circle"
+          src="https://picsum.photos/id/454/40"
+          alt="John Doe's profile picture"
+          width="40"
+          height="40"
+        />
+      </div>
+      <div class="column-2">
+        <div>
+          <h6 class="mb-0">John Doe</h6>
+          <small class="fs-xsmall">John Dee, Ernest Willow</small>
+        </div>
+      </div>
+    </header>
+
+    <div class="chat-body">
+      <div class="chat-body-messages">
+        <p>Message</p>
+      </div>
+    </div>
+    <footer>
+      <p>Footer</p>
+    </footer>
+  </section>
+</template>
+
+<style lang="scss" scoped>
+section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+header {
+  background-color: var(--card-background-color);
+  column-gap: var(--spacing);
+  display: flex;
+  order: 1;
+  padding: calc(var(--spacing) * 0.5) calc(var(--spacing) * 0.75);
+}
+
+footer {
+  order: 3;
+}
+
+.chat-body {
+  flex-grow: 1;
+  height: 100%;
+  order: 2;
+  position: relative;
+  width: 100%;
+
+  &-messages {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+.column {
+  &-1 {
+    align-self: center;
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: fit-content;
+  }
+
+  &-2 {
+    flex: 1 0 auto;
+    max-width: 100%;
+    width: 75%;
+  }
+}
+</style>
