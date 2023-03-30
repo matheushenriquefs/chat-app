@@ -27,5 +27,6 @@ $grid-breakpoints: (
 @import 'bootstrap/scss/vendor/rfs';
 @import 'bootstrap/scss/grid';
 
+@import '@/assets/stylesheets/root';
 @import '@/assets/stylesheets/utilities/all';
 @import '@/assets/stylesheets/components/all';
