@@ -26,7 +26,7 @@ const date = computed<string>(() => {
 </script>
 
 <template>
-  <article class="">
+  <article>
     <div class="column-1">
       <img
         class="rounded-circle"
