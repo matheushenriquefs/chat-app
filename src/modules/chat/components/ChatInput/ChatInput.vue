@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue'
 
 const message: Ref<string> = ref('')
+const textAreaElement: Ref<HTMLTextAreaElement | null> = ref(null)
 const cssVariables = {
   spacing: window.getComputedStyle(document.documentElement).getPropertyValue('--spacing'),
   lineHeight: window.getComputedStyle(document.documentElement).getPropertyValue('--line-height'),
@@ -12,28 +13,39 @@ const cssVariables = {
   borderWidth: window.getComputedStyle(document.documentElement).getPropertyValue('--border-width')
 }
 
-const handleInput = (event: Event) => {
-  const element = event.target as HTMLTextAreaElement
+const setStyles = (): void => {
+  if (textAreaElement.value) {
+    const parentElement = textAreaElement.value.parentElement as HTMLLabelElement
 
-  if (!message.value) {
-    element.setAttribute(
-      'style',
-      `height: calc(
-    1rem * ${cssVariables.lineHeight} + ${cssVariables.spacingVertical} * 2 + ${cssVariables.borderWidth} * 2
-  ); max-height: calc(${cssVariables.spacing} * 8);`
-    )
+    if (!message.value) {
+      const style = `height: calc(
+          1rem * ${cssVariables.lineHeight} + ${cssVariables.spacingVertical} * 2 + ${cssVariables.borderWidth} * 2
+        ); max-height: calc(${cssVariables.spacing} * 8);`
+      textAreaElement.value.setAttribute('style', style)
+      parentElement.setAttribute('style', style)
+
+      return
+    }
+
+    const style = `height: calc(${textAreaElement.value.scrollHeight}px + 2px); max-height: calc(${cssVariables.spacing} * 8);`
+    textAreaElement.value.setAttribute('style', style)
+    parentElement.setAttribute('style', style)
   }
-
-  element.setAttribute(
-    'style',
-    `height: ${element.scrollHeight}px; max-height: calc(${cssVariables.spacing} * 8);`
-  )
 }
+
+const handleInput = (): void => setStyles()
+
+onMounted(() => setStyles())
 </script>
 
 <template>
   <label>
-    <textarea name="message" v-model.trim="message" @input="handleInput"></textarea>
+    <textarea
+      name="message"
+      ref="textAreaElement"
+      v-model.trim="message"
+      @input="handleInput"
+    ></textarea>
   </label>
 </template>
 
