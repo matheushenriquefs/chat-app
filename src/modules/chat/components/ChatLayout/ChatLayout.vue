@@ -31,4 +31,8 @@ main,
 .row {
   height: 100%;
 }
+
+.row {
+  --bs-gutter-x: calc(var(--spacing) * 2);
+}
 </style>
