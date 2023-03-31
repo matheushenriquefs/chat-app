@@ -38,6 +38,11 @@ const handleInput = (event: Event) => {
 </template>
 
 <style lang="scss" scoped>
+label {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
 textarea {
   height: calc(
     1rem * var(--line-height) + var(--form-element-spacing-vertical) * 2 + var(--border-width) * 2
