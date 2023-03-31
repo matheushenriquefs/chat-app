@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { ChatInput } from '@/modules/chat/components/ChatInput'
+</script>
+
 <template>
   <section>
     <header>
@@ -24,7 +28,9 @@
       </div>
     </div>
     <footer>
-      <p>Footer</p>
+      <form>
+        <ChatInput />
+      </form>
     </footer>
   </section>
 </template>
@@ -46,7 +52,14 @@ header {
 }
 
 footer {
+  background-color: var(--card-background-color);
   order: 3;
+  padding: calc(var(--spacing) * 0.75);
+}
+
+form {
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .chat-body {
