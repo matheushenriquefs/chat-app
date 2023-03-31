@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ChatInput } from '@/modules/chat/components/ChatInput'
+
+import { Send as SendIcon } from 'lucide-vue-next'
 </script>
 
 <template>
@@ -30,6 +32,9 @@ import { ChatInput } from '@/modules/chat/components/ChatInput'
     <footer>
       <form>
         <ChatInput />
+        <button class="send-message-container" role="button">
+          <SendIcon />
+        </button>
       </form>
     </footer>
   </section>
@@ -58,8 +63,23 @@ footer {
 }
 
 form {
+  align-items: flex-end;
+  column-gap: var(--spacing);
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 0;
   margin-top: 0;
+
+  label {
+    flex-grow: 1;
+  }
+}
+
+.send-message-container {
+  height: calc(var(--spacing) * 3.125);
+  margin-bottom: 0;
+  padding: calc(var(--spacing) * 0.75);
+  width: auto;
 }
 
 .chat-body {
