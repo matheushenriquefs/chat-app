@@ -16,4 +16,5 @@ export type Chat = {
   others: ChatMember[]
   messages: ChatMessage[]
   type: 'chat' | 'group'
+  isActive: boolean
 }

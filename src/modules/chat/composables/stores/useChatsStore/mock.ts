@@ -19,12 +19,12 @@ export const mock: Chat[] = [
       },
       {
         id: 2,
-        content:
-          'Hello world.',
+        content: 'Hello world.',
         type: 'text',
         date: new Date().toISOString()
       }
     ],
-    type: 'chat'
+    type: 'chat',
+    isActive: false
   }
 ]
