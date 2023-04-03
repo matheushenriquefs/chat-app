@@ -1,21 +1,35 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+
 import { useDateTimeFacade } from '@/modules/core/composables/facades/useDateTimeFacade'
+import type { Chat, ChatMessage } from '@/modules/chat/types/Chat'
 
 const props = defineProps<{
-  message: {
-    id: number
-    content: string
-    type: string
-    date: string
-  }
+  chat: Chat
 }>()
 
 const DateTime = useDateTimeFacade()
 
+const lastUnseenMessage = computed<ChatMessage | null>(() => {
+  const reversedMessages = [...props.chat.messages].reverse()
+  const message = reversedMessages.find((message) => !message.seenAt)
+
+  return message ? message : null
+})
+
+const numberOfNotifications = computed<number>(() => {
+  return props.chat.messages.reduce((accumulator, message) => {
+    if (!message.seenAt) {
+      return accumulator + 1
+    }
+
+    return accumulator
+  }, 0)
+})
+
 const date = computed<string>(() => {
-  if (DateTime) {
-    return DateTime.intlFormat(DateTime.parseJSON(props.message.date), {
+  if (DateTime && lastUnseenMessage.value) {
+    return DateTime.intlFormat(DateTime.parseJSON(lastUnseenMessage.value.date), {
       hour: '2-digit',
       minute: '2-digit'
     })
@@ -42,8 +56,10 @@ const date = computed<string>(() => {
         <small class="fs-xsmall is-primary">{{ date }}</small>
       </div>
       <div class="chat-card-body">
-        <small class="text-truncate">{{ props.message.content }}</small>
-        <small class="chat-card-body-notification is-bg-primary fs-xsmall rounded-circle">9</small>
+        <small class="text-truncate">{{ lastUnseenMessage?.content }}</small>
+        <small class="chat-card-body-notification is-bg-primary fs-xsmall rounded-circle">{{
+          numberOfNotifications
+        }}</small>
       </div>
     </div>
   </article>
@@ -80,6 +96,7 @@ article {
   &-body {
     display: flex;
     column-gap: var(--spacing);
+    justify-content: space-between;
 
     &-notification {
       align-items: center;

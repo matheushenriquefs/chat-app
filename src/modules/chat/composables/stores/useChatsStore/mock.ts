@@ -16,6 +16,13 @@ export const mock: Chat[] = [
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nisl et odio tincidunt imperdiet.',
         type: 'text',
         date: new Date().toISOString()
+      },
+      {
+        id: 2,
+        content:
+          'Hello world.',
+        type: 'text',
+        date: new Date().toISOString()
       }
     ],
     type: 'chat'
