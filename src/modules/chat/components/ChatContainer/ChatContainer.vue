@@ -32,7 +32,7 @@ import { Send as SendIcon } from 'lucide-vue-next'
     <footer>
       <form>
         <ChatInput />
-        <button class="send-message-container" role="button">
+        <button>
           <SendIcon />
         </button>
       </form>
@@ -73,13 +73,13 @@ form {
   label {
     flex-grow: 1;
   }
-}
 
-.send-message-container {
-  height: calc(var(--spacing) * 3.125);
-  margin-bottom: 0;
-  padding: calc(var(--spacing) * 0.75);
-  width: auto;
+  button {
+    height: calc(var(--spacing) * 3.125);
+    margin-bottom: 0;
+    padding: calc(var(--spacing) * 0.75);
+    width: auto;
+  }
 }
 
 .chat-body {
@@ -93,6 +93,7 @@ form {
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
+    padding: var(--spacing);
     position: absolute;
     width: 100%;
   }
