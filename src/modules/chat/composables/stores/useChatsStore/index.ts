@@ -8,7 +8,13 @@ import { mock } from './mock'
 export const useChatsStore = defineStore('chats', () => {
   const chats: Ref<Chat[]> = ref([])
 
-  const updateById = (id: number, data: unknown): void => {
+  /**
+   * Update a stored chat by id.
+   *
+   * @param id {number} The id of the chat to be updated.
+   * @param data {object} An object with the keys and values to be updated.
+   */
+  const updateById = (id: number, data: object): void => {
     const chat = chats.value.find((chat) => chat.id === id)
 
     if (chat) {
