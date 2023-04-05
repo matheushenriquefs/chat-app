@@ -1,12 +1,14 @@
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useStorage } from '@vueuse/core'
 
 import type { Chat } from '@/modules/chat/types/Chat'
 import { mock } from './mock'
 
 export const useChatsStore = defineStore('chats', () => {
   const chats: Ref<Chat[]> = ref([])
+  const lastActiveChatId = useStorage('last-active-chat-id', 0, window.sessionStorage)
 
   /**
    * Update a stored chat by id.
@@ -22,8 +24,19 @@ export const useChatsStore = defineStore('chats', () => {
     }
   }
 
+  /**
+   * Update the isActive flag of a stored chat by id and persist its id on session storage.
+   *
+   * @param id {number} The id of the chat to be updated.
+   * @param isActive {boolean} An object with the keys and values to be updated.
+   */
+  const setIsActive = (id: number, isActive: boolean) => {
+    lastActiveChatId.value = id
+    updateById(id, { isActive })
+  }
+
   // TODO: Get chats from API
   setTimeout(() => (chats.value = mock), 500)
 
-  return { chats, updateById }
+  return { chats, updateById, setIsActive }
 })
