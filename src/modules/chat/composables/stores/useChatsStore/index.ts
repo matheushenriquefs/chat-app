@@ -35,8 +35,19 @@ export const useChatsStore = defineStore('chats', () => {
     updateById(id, { isActive })
   }
 
+  /**
+   * Get the current stored active chat.
+   *
+   * @returns {(Chat | null)} The current stored active chat.
+   */
+  const getActiveChat = (): Chat | null => {
+    const chat = chats.value.find((chat) => chat.isActive)
+
+    return chat ? chat : null
+  }
+
   // TODO: Get chats from API
   setTimeout(() => (chats.value = mock), 500)
 
-  return { chats, updateById, setIsActive }
+  return { chats, lastActiveChatId, updateById, setIsActive, getActiveChat }
 })
