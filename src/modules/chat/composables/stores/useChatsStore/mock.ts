@@ -26,5 +26,30 @@ export const mock: Chat[] = [
     ],
     type: 'chat',
     isActive: false
+  },
+  {
+    id: 2,
+    others: [
+      {
+        username: 'John McCarty',
+        profilePicture: 'https://picsum.photos/id/454/48'
+      }
+    ],
+    messages: [
+      {
+        id: 3,
+        content: 'Hello world.',
+        type: 'text',
+        date: new Date().toISOString()
+      },
+      {
+        id: 4,
+        content: 'Hello world.',
+        type: 'text',
+        date: new Date().toISOString()
+      }
+    ],
+    type: 'chat',
+    isActive: false
   }
 ]
