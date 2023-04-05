@@ -9,7 +9,7 @@ const router = useRouter()
 const store = useChatsStore()
 
 const handleNavigation = (chatId: number) => {
-  store.updateById(chatId, { isActive: true })
+  store.setIsActive(chatId, true)
   router.push('/chat')
 }
 </script>
