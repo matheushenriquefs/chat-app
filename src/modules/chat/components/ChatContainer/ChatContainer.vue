@@ -1,7 +1,26 @@
 <script setup lang="ts">
-import { ChatInput } from '@/modules/chat/components/ChatInput'
-
+import { computed, onMounted } from 'vue'
+import { onBeforeRouteLeave } from 'vue-router'
 import { Send as SendIcon } from 'lucide-vue-next'
+
+import { ChatInput } from '@/modules/chat/components/ChatInput'
+import { useChatsStore } from '@/modules/chat/composables/stores/useChatsStore'
+import type { Chat } from '@/modules/chat/types/Chat'
+
+const store = useChatsStore()
+const chat = computed<Chat | null>(() => store.getActiveChat())
+
+onMounted(() => {
+  if (store.lastActiveChatId) {
+    store.setIsActive(store.lastActiveChatId, true)
+  }
+})
+
+onBeforeRouteLeave(() => {
+  if (chat.value) {
+    store.setIsActive(chat.value.id, false)
+  }
+})
 </script>
 
 <template>
