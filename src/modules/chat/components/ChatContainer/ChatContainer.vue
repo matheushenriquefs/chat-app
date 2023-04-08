@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch, onBeforeMount } from 'vue'
+import { watchOnce } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 import { Send as SendIcon } from 'lucide-vue-next'
 
 import { ChatBody } from '@/modules/chat/components/ChatBody'
@@ -12,6 +14,7 @@ type ChatParams = Omit<Chat, 'others' | 'messages' | 'type'>
 
 const isLoading = ref(true)
 const store = useChatsStore()
+const { lastActiveChatId } = storeToRefs(store)
 const chat = computed<Chat | null>(() => store.getActiveChat())
 
 const handleSetIsActive = (chats: ChatParams[]) => {
@@ -35,6 +38,37 @@ const handleSetIsActive = (chats: ChatParams[]) => {
     }
   }
 }
+
+/**
+ * Set isActive flag when user navigates from chats list to chat page.
+ */
+onBeforeMount(() => {
+  isLoading.value = true
+  handleSetIsActive([{ id: lastActiveChatId.value, isActive: true }])
+  setTimeout(() => (isLoading.value = false), 500)
+})
+
+/**
+ * Set isActive flag when user reloads chat page.
+ */
+watchOnce(
+  () => store.chats,
+  () => {
+    isLoading.value = true
+    handleSetIsActive([{ id: store.lastActiveChatId, isActive: true }])
+    setTimeout(() => (isLoading.value = false), 500)
+  }
+)
+
+/**
+ * Set isActive flag when user switches between chats by clicking on a chats list's item.
+ */
+watch(lastActiveChatId, (newChatId, oldChatId) => {
+  handleSetIsActive([
+    { id: oldChatId, isActive: false },
+    { id: newChatId, isActive: true }
+  ])
+})
 </script>
 
 <template>
