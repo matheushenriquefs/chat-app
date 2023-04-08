@@ -1,0 +1,25 @@
+[aria-busy='true']:not(input, select, textarea) {
+  &::before {
+    border-radius: calc(var(--spacing) * 1.5);
+    height: calc(var(--spacing) * 1.5);
+    width: calc(var(--spacing) * 1.5);
+  }
+
+  &.loading {
+    &-md {
+      &::before {
+        border-radius: calc(var(--spacing) * 2);
+        height: calc(var(--spacing) * 2);
+        width: calc(var(--spacing) * 2);
+      }
+    }
+
+    &-lg {
+      &::before {
+        border-radius: calc(var(--spacing) * 3);
+        height: calc(var(--spacing) * 3);
+        width: calc(var(--spacing) * 3);
+      }
+    }
+  }
+}
