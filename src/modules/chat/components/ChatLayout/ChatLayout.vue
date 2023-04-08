@@ -5,6 +5,7 @@ type Props = {
     column2: boolean
   }
 }
+
 const props = withDefaults(defineProps<Props>(), {
   visibility: () => ({
     column1: true,
