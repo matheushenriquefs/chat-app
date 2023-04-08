@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
 import { Send as SendIcon } from 'lucide-vue-next'
 
@@ -7,6 +7,7 @@ import { ChatInput } from '@/modules/chat/components/ChatInput'
 import { useChatsStore } from '@/modules/chat/composables/stores/useChatsStore'
 import type { Chat } from '@/modules/chat/types/Chat'
 
+const isLoading = ref(true)
 const store = useChatsStore()
 const chat = computed<Chat | null>(() => store.getActiveChat())
 
@@ -42,12 +43,10 @@ onBeforeRouteLeave(() => {
         </div>
       </div>
     </header>
-
-    <div class="chat-body">
-      <div class="chat-body-messages">
-        <p>Message</p>
-      </div>
-    </div>
+    <ChatBody>
+      <div v-show="isLoading" class="loading-lg" :aria-busy="isLoading"></div>
+      <ChatMessages v-show="!isLoading" :messages="chat?.messages ? chat.messages : []" />
+    </ChatBody>
     <footer>
       <form>
         <ChatInput />
@@ -101,21 +100,11 @@ form {
   }
 }
 
-.chat-body {
-  flex-grow: 1;
+.loading-lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
-  order: 2;
-  position: relative;
-  width: 100%;
-
-  &-messages {
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    padding: var(--spacing);
-    position: absolute;
-    width: 100%;
-  }
 }
 
 .column {
