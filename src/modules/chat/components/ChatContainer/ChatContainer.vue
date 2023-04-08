@@ -1,27 +1,40 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
-import { onBeforeRouteLeave } from 'vue-router'
+import { computed, ref } from 'vue'
 import { Send as SendIcon } from 'lucide-vue-next'
 
+import { ChatBody } from '@/modules/chat/components/ChatBody'
+import { ChatMessages } from '@/modules/chat/components/ChatMessages'
 import { ChatInput } from '@/modules/chat/components/ChatInput'
 import { useChatsStore } from '@/modules/chat/composables/stores/useChatsStore'
 import type { Chat } from '@/modules/chat/types/Chat'
+
+type ChatParams = Omit<Chat, 'others' | 'messages' | 'type'>
 
 const isLoading = ref(true)
 const store = useChatsStore()
 const chat = computed<Chat | null>(() => store.getActiveChat())
 
-onMounted(() => {
-  if (store.lastActiveChatId) {
-    store.setIsActive(store.lastActiveChatId, true)
-  }
-})
+const handleSetIsActive = (chats: ChatParams[]) => {
+  if (chats.length > 1) {
+    store.$patch(() => {
+      chats.forEach((chat) => {
+        if (chat.id) {
+          store.setIsActive(chat.id, chat.isActive)
+        }
+      })
+    })
 
-onBeforeRouteLeave(() => {
-  if (chat.value) {
-    store.setIsActive(chat.value.id, false)
+    return
   }
-})
+
+  if (chats.length === 1) {
+    const [chat] = chats
+
+    if (chat.id) {
+      store.setIsActive(chat.id, chat.isActive)
+    }
+  }
+}
 </script>
 
 <template>
