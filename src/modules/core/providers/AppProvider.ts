@@ -1,5 +1,6 @@
 import type { App } from 'vue'
 
+import { HttpAxiosClient } from '@/modules/core/clients/HttpAxiosClient'
 import { DateTimeDateFnsHelper } from '@/modules/core/helpers/DateTimeDateFnsHelper'
 
 export class AppProvider {
@@ -8,6 +9,17 @@ export class AppProvider {
   }
 
   public async setupDI(): Promise<void> {
+    const Http = HttpAxiosClient.getInstance()
+    Http.setMacro('default', {
+      baseURL: import.meta.env.VITE_API_URL,
+      headers: {
+        common: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+    })
+    this.app.provide('@/core/composables/facades/Http', Http)
     this.app.provide('@/core/composables/facades/DateTime', new DateTimeDateFnsHelper())
   }
 }
