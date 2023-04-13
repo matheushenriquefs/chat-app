@@ -69,6 +69,8 @@ const date = computed<string>(() => {
 article {
   column-gap: var(--spacing);
   display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
   padding: calc(var(--spacing) * 0.75);
 }
 

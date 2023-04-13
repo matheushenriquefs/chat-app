@@ -22,8 +22,20 @@ const handleNavigation = (chatId: number) => {
           <RouterLink class="unstyled" to="" @click.prevent="handleNavigation(chat.id)">
             <ChatCard :chat="chat" />
           </RouterLink>
+          <hr role="separator" />
         </li>
       </ul>
     </template>
   </ChatLayout>
 </template>
+
+<style lang="scss" scoped>
+li {
+  margin-bottom: 0;
+}
+
+hr {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+</style>
