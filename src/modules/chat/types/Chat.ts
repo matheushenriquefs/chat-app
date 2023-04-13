@@ -18,3 +18,5 @@ export type Chat = {
   type: 'chat' | 'group'
   isActive: boolean
 }
+
+export type HttpChat = Omit<Chat, 'messages' | 'isActive'>

@@ -1,14 +1,16 @@
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import type { Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 
-import type { Chat } from '@/modules/chat/types/Chat'
-import { mock } from './mock'
+import { useHttpFacade } from '@/modules/core/composables/facades/useHttpFacade'
+import type { Chat, HttpChat } from '@/modules/chat/types/Chat'
+import type { IHttpRequestOptions } from '@/modules/core/contracts/IHttp'
 
 export const useChatsStore = defineStore('chats', () => {
   const chats: Ref<Chat[]> = ref([])
   const lastActiveChatId = useStorage('last-active-chat-id', 0, window.sessionStorage)
+  const Http = useHttpFacade()
 
   /**
    * Update a stored chat by id.
@@ -35,6 +37,25 @@ export const useChatsStore = defineStore('chats', () => {
     updateById(id, { isActive })
   }
 
+  const fetch = async (config: IHttpRequestOptions = {}): Promise<Chat[]> => {
+    try {
+      if (Http) {
+        const chats = (await Http.get<HttpChat[]>('/v1/chats', config)).data.map((chat) => ({
+          ...chat,
+          messages: [],
+          isActive: false
+        }))
+
+        return chats
+      }
+    } catch (error) {
+      console.log('[error] chatStore - getChats', error)
+      return []
+    }
+
+    return []
+  }
+
   /**
    * Get the current stored active chat.
    *
@@ -46,8 +67,9 @@ export const useChatsStore = defineStore('chats', () => {
     return chat ? chat : null
   }
 
-  // TODO: Get chats from API
-  setTimeout(() => (chats.value = mock), 500)
+  onBeforeMount(async () => {
+    chats.value = await fetch()
+  })
 
   return { chats, lastActiveChatId, updateById, setIsActive, getActive }
 })
