@@ -40,7 +40,7 @@ export const useChatsStore = defineStore('chats', () => {
    *
    * @returns {(Chat | null)} The current stored active chat.
    */
-  const getActiveChat = (): Chat | null => {
+  const getActive = (): Chat | null => {
     const chat = chats.value.find((chat) => chat.isActive)
 
     return chat ? chat : null
@@ -49,5 +49,5 @@ export const useChatsStore = defineStore('chats', () => {
   // TODO: Get chats from API
   setTimeout(() => (chats.value = mock), 500)
 
-  return { chats, lastActiveChatId, updateById, setIsActive, getActiveChat }
+  return { chats, lastActiveChatId, updateById, setIsActive, getActive }
 })
