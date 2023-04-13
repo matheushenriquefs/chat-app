@@ -15,7 +15,7 @@ type ChatParams = Omit<Chat, 'others' | 'messages' | 'type'>
 const isLoading = ref(true)
 const store = useChatsStore()
 const { lastActiveChatId } = storeToRefs(store)
-const chat = computed<Chat | null>(() => store.getActiveChat())
+const chat = computed<Chat | null>(() => store.getActive())
 
 const handleSetIsActive = (chats: ChatParams[]) => {
   if (chats.length > 1) {
