@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 
 import { useDateTimeFacade } from '@/modules/core/composables/facades/useDateTimeFacade'
+import { useChatRecipient } from '@/modules/chat/composables/chat/useChatRecipient'
 import type { Chat, ChatMessage } from '@/modules/chat/types/Chat'
 
 const props = defineProps<{
@@ -9,6 +10,7 @@ const props = defineProps<{
 }>()
 
 const DateTime = useDateTimeFacade()
+const { recipient } = useChatRecipient(props.chat)
 
 const lastUnseenMessage = computed<ChatMessage | null>(() => {
   const reversedMessages = [...props.chat.messages].reverse()
@@ -44,15 +46,15 @@ const date = computed<string>(() => {
     <div class="column-1">
       <img
         class="rounded-circle"
-        src="https://picsum.photos/id/454/48"
-        alt="John Doe's profile picture"
+        :src="recipient.thumbnail"
+        :alt="`${recipient.name}'s profile picture`"
         width="48"
         height="48"
       />
     </div>
     <div class="column-2">
       <div class="chat-card-header">
-        <h6 class="mb-0">John Doe</h6>
+        <h6 class="mb-0">{{ recipient.name }}</h6>
         <small class="fs-xsmall is-primary">{{ date }}</small>
       </div>
       <div class="chat-card-body">

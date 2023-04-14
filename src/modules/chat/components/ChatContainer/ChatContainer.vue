@@ -8,16 +8,21 @@ import { ChatBody } from '@/modules/chat/components/ChatBody'
 import { ChatMessages } from '@/modules/chat/components/ChatMessages'
 import { ChatInput } from '@/modules/chat/components/ChatInput'
 import { useChatsStore } from '@/modules/chat/composables/stores/useChatsStore'
+import { useChatRecipient } from '@/modules/chat/composables/chat/useChatRecipient'
 import type { Chat } from '@/modules/chat/types/Chat'
-
-type ChatParams = Omit<Chat, 'others' | 'messages' | 'type'>
 
 const isLoading = ref(true)
 const store = useChatsStore()
 const { lastActiveChatId } = storeToRefs(store)
 const chat = computed<Chat | null>(() => store.getActive())
+const { recipient } = useChatRecipient(chat)
 
-const handleSetIsActive = (chats: ChatParams[]) => {
+const handleSetIsActive = (
+  chats: {
+    id: number
+    isActive: boolean
+  }[]
+) => {
   if (chats.length > 1) {
     store.$patch(() => {
       chats.forEach((chat) => {
@@ -77,15 +82,15 @@ watch(lastActiveChatId, (newChatId, oldChatId) => {
       <div class="column-1">
         <img
           class="rounded-circle"
-          src="https://picsum.photos/id/454/40"
-          alt="John Doe's profile picture"
+          :src="recipient.thumbnail"
+          :alt="`${recipient.name}'s profile picture`"
           width="40"
           height="40"
         />
       </div>
       <div class="column-2">
         <div>
-          <h6 class="mb-0">John Doe</h6>
+          <h6 class="mb-0">{{ recipient.name }}</h6>
           <small class="fs-xsmall">John Dee, Ernest Willow</small>
         </div>
       </div>
