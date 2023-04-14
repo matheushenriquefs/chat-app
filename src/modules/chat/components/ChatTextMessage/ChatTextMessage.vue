@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { ChatMessage } from '@/modules/chat/types/Chat'
 
-type Props = {
+type ChatTextMessageProps = {
   message: ChatMessage
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<ChatTextMessageProps>(), {
   message: () => ({
     id: 0,
     content: '',

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-type Props = {
+type ChatLayoutProps = {
   visibility?: {
     column1: boolean
     column2: boolean
   }
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<ChatLayoutProps>(), {
   visibility: () => ({
     column1: true,
     column2: true
