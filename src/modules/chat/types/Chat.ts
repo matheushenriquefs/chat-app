@@ -6,17 +6,24 @@ export type ChatMessage = {
   seenAt?: string
 }
 
-type ChatMember = {
+export type ChatMember = {
   username: string
   profilePicture: string
 }
 
 export type Chat = {
   id: number
-  others: ChatMember[]
+  name?: string
+  thumbnail?: string
+  members: ChatMember[]
   messages: ChatMessage[]
   type: 'chat' | 'group'
   isActive: boolean
+}
+
+export type ChatRecipient = {
+  name: string
+  thumbnail: string
 }
 
 export type HttpChat = Omit<Chat, 'messages' | 'isActive'>

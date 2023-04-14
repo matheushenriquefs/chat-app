@@ -3,7 +3,7 @@ import type { Chat } from '@/modules/chat/types/Chat'
 export const mock: Chat[] = [
   {
     id: 1,
-    others: [
+    members: [
       {
         username: 'John Doe',
         profilePicture: 'https://picsum.photos/id/454/48'
@@ -29,10 +29,10 @@ export const mock: Chat[] = [
   },
   {
     id: 2,
-    others: [
+    members: [
       {
         username: 'John McCarty',
-        profilePicture: 'https://picsum.photos/id/454/48'
+        profilePicture: 'https://picsum.photos/id/455/48'
       }
     ],
     messages: [
