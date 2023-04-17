@@ -26,4 +26,4 @@ export type ChatRecipient = {
   thumbnail: string
 }
 
-export type HttpChat = Omit<Chat, 'messages' | 'isActive'>
+export type HttpChat = Omit<Chat, 'isActive'>
