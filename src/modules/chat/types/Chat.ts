@@ -2,7 +2,7 @@ export type ChatMessage = {
   id: number
   content: string
   type: 'text'
-  date: string
+  createdAt: string
   seenAt?: string
 }
 
