@@ -24,8 +24,10 @@
   },
   "devDependencies": {
     "@picocss/pico": "^1.5.7",
+    "@pinia/testing": "^0.0.16",
     "@playwright/test": "^1.31.1",
     "@rushstack/eslint-patch": "^1.2.0",
+    "@testing-library/vue": "^7.0.0",
     "@types/jsdom": "^21.1.0",
     "@types/node": "^18.14.2",
     "@vitejs/plugin-vue": "^4.0.0",
