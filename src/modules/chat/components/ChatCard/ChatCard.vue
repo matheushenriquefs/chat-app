@@ -5,6 +5,7 @@ import { VBadge } from '@/modules/core/components/VBadge'
 import { useDateTimeFacade } from '@/modules/core/composables/facades/useDateTimeFacade'
 import { useChatRecipient } from '@/modules/chat/composables/chat/useChatRecipient'
 import { useChatLastMessage } from '@/modules/chat/composables/chat/useChatLastMessage'
+import { useChatCountNotifications } from '@/modules/chat/composables/chat/useChatCountNotifications'
 import type { Chat } from '@/modules/chat/types/Chat'
 
 const props = defineProps<{
@@ -14,20 +15,11 @@ const props = defineProps<{
 const DateTime = useDateTimeFacade()
 const { recipient } = useChatRecipient(props.chat)
 const { lastMessage } = useChatLastMessage(props.chat.messages)
-
-const numberOfNotifications = computed<number>(() => {
-  return props.chat.messages.reduce((accumulator, message) => {
-    if (!message.seenAt) {
-      return accumulator + 1
-    }
-
-    return accumulator
-  }, 0)
-})
+const { counter: notificationsCounter } = useChatCountNotifications(props.chat.messages)
 
 const date = computed<string>(() => {
   if (DateTime && lastMessage.value) {
-    return DateTime.intlFormat(DateTime.parseJSON(lastMessage.value.date), {
+    return DateTime.intlFormat(DateTime.parseJSON(lastMessage.value.createdAt), {
       hour: '2-digit',
       minute: '2-digit'
     })
@@ -51,17 +43,17 @@ const date = computed<string>(() => {
     <div class="column-2">
       <div class="chat-card-header">
         <h6 class="mb-0">{{ recipient.name }}</h6>
-        <small :class="['fs-xsmall', { 'is-primary': numberOfNotifications }]">{{ date }}</small>
+        <small :class="['fs-xsmall', { 'is-primary': notificationsCounter }]">{{ date }}</small>
       </div>
       <div class="chat-card-body">
-        <small :class="['text-truncate', { 'is-primary': numberOfNotifications }]">{{
+        <small :class="['text-truncate', { 'is-primary': notificationsCounter }]">{{
           lastMessage?.content
         }}</small>
         <VBadge
-          v-show="numberOfNotifications"
-          :aria-label="`${numberOfNotifications} of unread messages.`"
+          v-show="notificationsCounter"
+          :aria-label="`${notificationsCounter} of notifications.`"
         >
-          {{ numberOfNotifications }}
+          {{ notificationsCounter }}
         </VBadge>
       </div>
     </div>
