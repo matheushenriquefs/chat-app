@@ -3,7 +3,8 @@ import { computed } from 'vue'
 
 import { useDateTimeFacade } from '@/modules/core/composables/facades/useDateTimeFacade'
 import { useChatRecipient } from '@/modules/chat/composables/chat/useChatRecipient'
-import type { Chat, ChatMessage } from '@/modules/chat/types/Chat'
+import { useChatLastMessage } from '@/modules/chat/composables/chat/useChatLastMessage'
+import type { Chat } from '@/modules/chat/types/Chat'
 
 const props = defineProps<{
   chat: Chat
@@ -11,13 +12,7 @@ const props = defineProps<{
 
 const DateTime = useDateTimeFacade()
 const { recipient } = useChatRecipient(props.chat)
-
-const lastUnseenMessage = computed<ChatMessage | null>(() => {
-  const reversedMessages = [...props.chat.messages].reverse()
-  const message = reversedMessages.find((message) => !message.seenAt)
-
-  return message ? message : null
-})
+const { lastMessage } = useChatLastMessage(props.chat.messages)
 
 const numberOfNotifications = computed<number>(() => {
   return props.chat.messages.reduce((accumulator, message) => {
@@ -30,8 +25,8 @@ const numberOfNotifications = computed<number>(() => {
 })
 
 const date = computed<string>(() => {
-  if (DateTime && lastUnseenMessage.value) {
-    return DateTime.intlFormat(DateTime.parseJSON(lastUnseenMessage.value.date), {
+  if (DateTime && lastMessage.value) {
+    return DateTime.intlFormat(DateTime.parseJSON(lastMessage.value.date), {
       hour: '2-digit',
       minute: '2-digit'
     })
@@ -55,13 +50,17 @@ const date = computed<string>(() => {
     <div class="column-2">
       <div class="chat-card-header">
         <h6 class="mb-0">{{ recipient.name }}</h6>
-        <small class="fs-xsmall is-primary">{{ date }}</small>
+        <small :class="['fs-xsmall', { 'is-primary': numberOfNotifications }]">{{ date }}</small>
       </div>
       <div class="chat-card-body">
-        <small class="text-truncate">{{ lastUnseenMessage?.content }}</small>
-        <small class="chat-card-body-notification is-bg-primary fs-xsmall rounded-circle">{{
-          numberOfNotifications
+        <small :class="['text-truncate', { 'is-primary': numberOfNotifications }]">{{
+          lastMessage?.content
         }}</small>
+        <small
+          class="chat-card-body-notification is-bg-primary fs-xsmall rounded-circle"
+          v-show="numberOfNotifications"
+          >{{ numberOfNotifications }}</small
+        >
       </div>
     </div>
   </article>
