@@ -42,7 +42,6 @@ export const useChatsStore = defineStore('chats', () => {
       if (Http) {
         const chats = (await Http.get<HttpChat[]>('/v1/chats', config)).data.map((chat) => ({
           ...chat,
-          messages: [],
           isActive: false
         }))
 
