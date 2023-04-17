@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+import { VBadge } from '@/modules/core/components/VBadge'
 import { useDateTimeFacade } from '@/modules/core/composables/facades/useDateTimeFacade'
 import { useChatRecipient } from '@/modules/chat/composables/chat/useChatRecipient'
 import { useChatLastMessage } from '@/modules/chat/composables/chat/useChatLastMessage'
@@ -56,11 +57,12 @@ const date = computed<string>(() => {
         <small :class="['text-truncate', { 'is-primary': numberOfNotifications }]">{{
           lastMessage?.content
         }}</small>
-        <small
-          class="chat-card-body-notification is-bg-primary fs-xsmall rounded-circle"
+        <VBadge
           v-show="numberOfNotifications"
-          >{{ numberOfNotifications }}</small
+          :aria-label="`${numberOfNotifications} of unread messages.`"
         >
+          {{ numberOfNotifications }}
+        </VBadge>
       </div>
     </div>
   </article>
@@ -100,16 +102,6 @@ article {
     display: flex;
     column-gap: var(--spacing);
     justify-content: space-between;
-
-    &-notification {
-      align-items: center;
-      color: var(--card-background-color);
-      display: flex;
-      height: calc(var(--spacing) * 1.5);
-      justify-content: center;
-      padding: calc(var(--spacing) * 0.75);
-      width: calc(var(--spacing) * 1.5);
-    }
   }
 }
 </style>
