@@ -14,9 +14,9 @@ const templates = {
 <template>
   <div>
     <component
+      :is="templates[message.type]"
       v-for="message of props.messages"
       :key="message.id"
-      :is="templates[message.type]"
       :message="message"
     ></component>
   </div>

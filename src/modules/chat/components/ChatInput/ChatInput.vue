@@ -41,9 +41,9 @@ onMounted(() => setStyles())
 <template>
   <label>
     <textarea
-      name="message"
       ref="textAreaElement"
       v-model.trim="message"
+      name="message"
       @input="handleInput"
     ></textarea>
   </label>
