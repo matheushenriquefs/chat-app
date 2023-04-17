@@ -15,13 +15,13 @@ export const mock: Chat[] = [
         content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nisl et odio tincidunt imperdiet.',
         type: 'text',
-        date: new Date().toISOString()
+        date: '2023-04-14T15:10:10.038Z'
       },
       {
         id: 2,
         content: 'Hello world.',
         type: 'text',
-        date: new Date().toISOString()
+        date: '2023-04-14T15:11:10.038Z'
       }
     ],
     type: 'chat',
@@ -40,13 +40,13 @@ export const mock: Chat[] = [
         id: 3,
         content: 'Hello world.',
         type: 'text',
-        date: new Date().toISOString()
+        date: '2023-04-14T15:12:10.038Z'
       },
       {
         id: 4,
-        content: 'Hello world.',
+        content: 'World Hello.',
         type: 'text',
-        date: new Date().toISOString()
+        date: '2023-04-14T15:12:30.038Z'
       }
     ],
     type: 'chat',
