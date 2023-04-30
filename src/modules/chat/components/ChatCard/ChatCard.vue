@@ -51,7 +51,7 @@ const date = computed<string>(() => {
         }}</small>
         <VBadge
           v-show="notificationsCounter"
-          :aria-label="`${notificationsCounter} of notifications.`"
+          :aria-label="`${notificationsCounter} notifications.`"
         >
           {{ notificationsCounter }}
         </VBadge>
