@@ -13,7 +13,7 @@ export const useChatLastMessage = (
     id: 0,
     content: '',
     type: 'text' as 'text',
-    date: ''
+    createdAt: ''
   })
 
   function doFormat() {
@@ -21,7 +21,7 @@ export const useChatLastMessage = (
       id: 0,
       content: '',
       type: 'text',
-      date: ''
+      createdAt: ''
     }
 
     const unrefed = unref(messages)
