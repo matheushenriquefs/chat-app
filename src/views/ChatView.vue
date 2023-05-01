@@ -4,6 +4,7 @@ import type { Ref } from 'vue'
 
 import { ChatLayout } from '@/modules/chat/components/ChatLayout'
 import { ChatContainer } from '@/modules/chat/components/ChatContainer'
+import { ChatCardList } from '@/modules/chat/components/ChatCardList'
 import { useBreakpoints } from '@/modules/core/composables/browser/useBreakpoints'
 
 const breakpoints = useBreakpoints()
@@ -26,11 +27,7 @@ watch(breakpoints.greaterOrEqual('lg'), (value) => {
 <template>
   <ChatLayout :visibility="visibility">
     <template #column-1>
-      <ul>
-        <li>
-          <p>Chat view</p>
-        </li>
-      </ul>
+      <ChatCardList />
     </template>
     <template #column-2>
       <ChatContainer />
