@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, type TestContext } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, within } from '@testing-library/vue'
 import { createTestingPinia } from '@pinia/testing'
 import type { Ref } from 'vue'
@@ -9,26 +9,16 @@ import { useChatsStore } from '@/modules/chat/composables/stores/useChatsStore'
 import { useChatRecipient } from '@/modules/chat/composables/chat/useChatRecipient'
 import { useChatLastMessage } from '@/modules/chat/composables/chat/useChatLastMessage'
 import { useChatCountNotifications } from '@/modules/chat/composables/chat/useChatCountNotifications'
-import { createMockedChats } from './mock'
+import { createMockedChats } from '@/modules/chat/utils/tests/mocks/mock'
+import type { ILocalTestContext } from '@/modules/chat/utils/tests/types/ILocalTestContext'
 import type { ChatMessage } from '@/modules/chat/types/Chat'
-
-interface LocalTestContext extends TestContext {
-  options: {
-    render: {
-      global: {
-        plugins: any[]
-      }
-    }
-  }
-  store: any
-}
 
 const mock = createMockedChats()
 const pinia = createTestingPinia({
   createSpy: vi.fn()
 })
 
-beforeEach<LocalTestContext>(async (context) => {
+beforeEach<ILocalTestContext>(async (context) => {
   const store = useChatsStore()
   store.chats = []
 
@@ -44,7 +34,7 @@ beforeEach<LocalTestContext>(async (context) => {
 
 describe('HomeView', () => {
   describe('when user has no chats', () => {
-    it(`should not display chat list items`, (context: LocalTestContext) => {
+    it(`should not display chat list items`, (context: ILocalTestContext) => {
       const container = render(HomeView, context.options.render)
       const list = container.getByRole('list')
       const listItems = within(list).queryAllByRole('listitem')
@@ -55,7 +45,7 @@ describe('HomeView', () => {
   })
 
   describe('when user has at least one chat', () => {
-    it(`should display chat list items without notifications`, (context: LocalTestContext) => {
+    it(`should display chat list items without notifications`, (context: ILocalTestContext) => {
       context.store.chats = mock[1]
       const container = render(HomeView, context.options.render)
       const list = container.getByRole('list')
@@ -79,7 +69,7 @@ describe('HomeView', () => {
       })
     })
 
-    it(`should display chat list items with notifications`, (context: LocalTestContext) => {
+    it(`should display chat list items with notifications`, (context: ILocalTestContext) => {
       context.store.chats = mock[2]
       const container = render(HomeView, context.options.render)
       const list = container.getByRole('list')
