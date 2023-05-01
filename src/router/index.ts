@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { HomeView } from '../views/HomeView'
 import ChatView from '../views/ChatView.vue'
 
-export const options = {
+const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -16,8 +16,6 @@ export const options = {
       component: ChatView
     }
   ]
-}
-
-const router = createRouter(options)
+})
 
 export default router
