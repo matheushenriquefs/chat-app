@@ -16,7 +16,7 @@ export const useChatsStore = defineStore('chats', () => {
    * Update a stored chat by id.
    *
    * @param id {number} The id of the chat to be updated.
-   * 
+   *
    * @param data {object} An object with the keys and values to be updated.
    */
   const updateById = (id: number, data: object): void => {
@@ -31,7 +31,7 @@ export const useChatsStore = defineStore('chats', () => {
    * Update the isActive flag of a stored chat by id and persist its id on session storage.
    *
    * @param id {number} The id of the chat to be updated.
-   * 
+   *
    * @param isActive {boolean} An object with the keys and values to be updated.
    */
   const setIsActive = (id: number, isActive: boolean) => {
@@ -44,7 +44,7 @@ export const useChatsStore = defineStore('chats', () => {
    *
    * @param config {object} Options compliant with the IHttpRequestOptions interface.
    * This object is used as request specific options by the HTTP client.
-   * 
+   *
    * @returns {Promise} A promise containing an array of chats.
    */
   const fetch = async (config: IHttpRequestOptions = {}): Promise<Chat[]> => {
