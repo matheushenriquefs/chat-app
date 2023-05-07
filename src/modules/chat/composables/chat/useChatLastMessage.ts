@@ -13,6 +13,9 @@ export const useChatLastMessage = (
     id: 0,
     content: '',
     type: 'text' as 'text',
+    sender: {
+      userId: 0
+    },
     createdAt: ''
   })
 
@@ -21,6 +24,9 @@ export const useChatLastMessage = (
       id: 0,
       content: '',
       type: 'text',
+      sender: {
+        userId: 0
+      },
       createdAt: ''
     }
 

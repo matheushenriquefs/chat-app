@@ -2,6 +2,9 @@ export type ChatMessage = {
   id: number
   content: string
   type: 'text'
+  sender: {
+    userId: number
+  }
   createdAt: string
   seenAt?: string
 }
@@ -13,12 +16,16 @@ export type ChatMember = {
 
 export type Chat = {
   id: number
-  name?: string
-  thumbnail?: string
   members: ChatMember[]
   messages: ChatMessage[]
   type: 'chat' | 'group'
   isActive: boolean
+}
+
+export type GroupChat = Chat & {
+  name: string
+  thumbnail: string
+  description: string
 }
 
 export type ChatRecipient = {

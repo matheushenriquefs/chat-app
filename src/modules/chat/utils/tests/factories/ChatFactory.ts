@@ -26,6 +26,9 @@ export class ChatFactory implements IChatFactory {
       id: faker.datatype.number(),
       content: faker.lorem.words(faker.datatype.number({ min: 3, max: 30 })),
       type: 'text',
+      sender: {
+        userId: 0
+      },
       createdAt: faker.date.past() as unknown as string
     }
   }
