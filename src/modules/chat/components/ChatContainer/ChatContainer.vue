@@ -103,6 +103,7 @@ watch(lastActiveChatId, (newChatId, oldChatId) => {
       <form>
         <ChatInput />
         <button>
+          <div class="visually-hidden">Send message</div>
           <SendIcon />
         </button>
       </form>

@@ -16,7 +16,11 @@ const handleNavigation = (chatId: number) => {
 <template>
   <ul>
     <li v-for="chat of store.chats" :key="chat.id">
-      <RouterLink class="unstyled" to="/chat" @click.prevent="handleNavigation(chat.id)">
+      <RouterLink
+        class="unstyled cursor-pointer"
+        to="/chat"
+        @click.prevent="handleNavigation(chat.id)"
+      >
         <ChatCard :chat="chat" />
       </RouterLink>
       <hr role="separator" />

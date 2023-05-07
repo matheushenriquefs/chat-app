@@ -43,7 +43,7 @@ const date = computed<string>(() => {
     <div class="column-2">
       <div class="chat-card-header">
         <h6 class="mb-0">{{ recipient.name }}</h6>
-        <small :class="['fs-xsmall', { 'is-primary': notificationsCounter }]">{{ date }}</small>
+        <time :class="['fs-xsmall', { 'is-primary': notificationsCounter }]">{{ date }}</time>
       </div>
       <div class="chat-card-body">
         <small :class="['text-truncate', { 'is-primary': notificationsCounter }]">{{
@@ -51,7 +51,7 @@ const date = computed<string>(() => {
         }}</small>
         <VBadge
           v-show="notificationsCounter"
-          :aria-label="`${notificationsCounter} notifications.`"
+          :aria-label="`${notificationsCounter} notifications from conversation with ${recipient.name}`"
         >
           {{ notificationsCounter }}
         </VBadge>
