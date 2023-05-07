@@ -10,7 +10,10 @@ const props = withDefaults(defineProps<ChatTextMessageProps>(), {
     id: 0,
     content: '',
     type: 'text',
-    date: ''
+    sender: {
+      userId: 0
+    },
+    createdAt: ''
   })
 })
 </script>
@@ -18,3 +21,9 @@ const props = withDefaults(defineProps<ChatTextMessageProps>(), {
 <template>
   <p>{{ props.message.content }}</p>
 </template>
+
+<style lang="scss" scoped>
+p {
+  margin-bottom: 0;
+}
+</style>
