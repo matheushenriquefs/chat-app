@@ -5,5 +5,19 @@
 .is-bg {
   &-primary {
     background-color: $primary;
+
+    &-dark {
+      background-color: $primary-700;
+    }
+
+    &-darker {
+      background-color: $primary-800;
+    }
+  }
+
+  &-grey {
+    &-darker {
+      background-color: $grey-800;
+    }
   }
 }
