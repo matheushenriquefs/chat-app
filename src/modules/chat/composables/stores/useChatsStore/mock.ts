@@ -15,6 +15,9 @@ export const mock: Chat[] = [
         content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nisl et odio tincidunt imperdiet.',
         type: 'text',
+        sender: {
+          userId: 0
+        },
         createdAt: '2023-04-14T15:10:10.038Z',
         seenAt: '2023-04-14T15:10:10.038Z'
       },
@@ -22,6 +25,9 @@ export const mock: Chat[] = [
         id: 2,
         content: 'Hello world.',
         type: 'text',
+        sender: {
+          userId: 0
+        },
         createdAt: '2023-04-14T15:11:10.038Z'
       }
     ],
@@ -41,12 +47,18 @@ export const mock: Chat[] = [
         id: 3,
         content: 'Hello world.',
         type: 'text',
+        sender: {
+          userId: 0
+        },
         createdAt: '2023-04-14T15:12:10.038Z'
       },
       {
         id: 4,
         content: 'World Hello.',
         type: 'text',
+        sender: {
+          userId: 0
+        },
         createdAt: '2023-04-14T15:12:30.038Z'
       }
     ],
@@ -66,6 +78,9 @@ export const mock: Chat[] = [
         id: 3,
         content: 'Hello Perry.',
         type: 'text',
+        sender: {
+          userId: 0
+        },
         createdAt: '2023-04-14T15:12:10.038Z',
         seenAt: '2023-04-14T15:12:10.038Z'
       },
@@ -73,6 +88,9 @@ export const mock: Chat[] = [
         id: 4,
         content: 'World Hello Steve.',
         type: 'text',
+        sender: {
+          userId: 0
+        },
         createdAt: '2023-04-14T15:12:30.038Z',
         seenAt: '2023-04-14T15:12:30.038Z'
       }
