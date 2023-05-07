@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomeView } from '../views/HomeView'
-import { ChatView } from '../views/ChatView'
-import { RegisterView } from '../views/RegisterView'
+
+const HomeView = () => import('../views/HomeView/HomeView.vue')
+const ChatView = () => import('../views/ChatView/ChatView.vue')
+const RegisterView = () => import('../views/RegisterView/RegisterView.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
