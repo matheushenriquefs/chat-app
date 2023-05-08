@@ -39,8 +39,9 @@ onMounted(() => setStyles())
 </script>
 
 <template>
-  <label>
+  <label for="message">
     <textarea
+      id="message"
       ref="textAreaElement"
       v-model.trim="message"
       name="message"

@@ -23,7 +23,7 @@ const handleNavigation = (chatId: number) => {
       >
         <ChatCard :chat="chat" />
       </RouterLink>
-      <hr role="separator" />
+      <hr />
     </li>
   </ul>
 </template>

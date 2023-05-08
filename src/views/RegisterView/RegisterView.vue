@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/* eslint vuejs-accessibility/label-has-for: 0 */
 import { ref } from 'vue'
 import { useStepper } from '@vueuse/core'
 
