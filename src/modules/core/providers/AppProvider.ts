@@ -1,4 +1,5 @@
 import type { App } from 'vue'
+import VueTelInput from 'vue-tel-input'
 
 import { HttpAxiosClient } from '@/modules/core/clients/HttpAxiosClient'
 import { DateTimeDateFnsHelper } from '@/modules/core/helpers/DateTimeDateFnsHelper'
@@ -21,5 +22,9 @@ export class AppProvider {
     })
     this.app.provide('@/core/composables/facades/Http', Http)
     this.app.provide('@/core/composables/facades/DateTime', new DateTimeDateFnsHelper())
+  }
+
+  public async setupPlugin(): Promise<void> {
+    this.app.use(VueTelInput)
   }
 }
