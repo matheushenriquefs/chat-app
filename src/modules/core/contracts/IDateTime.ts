@@ -2,7 +2,7 @@ export interface IDateTime {
   /**
    * Converts a complete ISO date string in UTC time, the typical format for transmitting a date in JSON, to a JavaScript Date instance.
    *
-   * @param date {(Date | number | string)} A fully formed ISO8601 date string to convert.
+   * @param {(Date | number | string)} date A fully formed ISO8601 date string to convert.
    *
    * @throws {TypeError} 1 argument required.
    *
@@ -13,7 +13,7 @@ export interface IDateTime {
   /**
    * Convert the given argument to an instance of Date.
    *
-   * @param date {(Date | number)} The value to convert.
+   * @param {(Date | number)} date The value to convert.
    *
    * @throws {TypeError} 1 argument required.
    *
@@ -24,7 +24,7 @@ export interface IDateTime {
   /**
    * Return the formatted date string in the given format.
    *
-   * @param date {(Date | number)} The original date.
+   * @param {(Date | number)} date The original date.
    * @param {object} [formatOptions] An optional format options.
    * @param {object} [localeOptions] An optional locale option.
    *
