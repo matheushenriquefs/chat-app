@@ -26,7 +26,7 @@ export default defineConfig({
             './src/modules/chat/components/ChatInput',
             './src/modules/chat/components/ChatLayout',
             './src/modules/chat/components/ChatMessages',
-            './src/modules/chat/components/ChatTextMessage',
+            './src/modules/chat/components/ChatTextMessage'
           ]
         }
       }
