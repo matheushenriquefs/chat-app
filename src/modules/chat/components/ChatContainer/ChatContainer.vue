@@ -12,6 +12,7 @@ import { useChatRecipient } from '@/modules/chat/composables/chat/useChatRecipie
 import type { Chat } from '@/modules/chat/types/Chat'
 
 const isLoading = ref(true)
+const message = ref('')
 const store = useChatsStore()
 const { lastActiveChatId } = storeToRefs(store)
 const chat = computed<Chat | null>(() => store.getActive())
@@ -101,8 +102,8 @@ watch(lastActiveChatId, (newChatId, oldChatId) => {
     </ChatBody>
     <footer>
       <form>
-        <ChatInput />
-        <button>
+        <ChatInput @typed="(event) => (message = event.message)" />
+        <button type="button" :disabled="!message">
           <div class="visually-hidden">Send message</div>
           <SendIcon />
         </button>

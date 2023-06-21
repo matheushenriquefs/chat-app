@@ -2,20 +2,28 @@
 import type { Ref } from 'vue'
 import { useTextareaAutosize } from '@vueuse/core'
 
+type TypedEvent = {
+  message: string
+}
+
 const cssVariables = {
   spacing: window.getComputedStyle(document.documentElement).getPropertyValue('--spacing')
 }
+
+const emit = defineEmits<{
+  (e: 'typed', { message }: TypedEvent): void
+}>()
+
 const onResize = (textareaRef: Ref<HTMLTextAreaElement>) => {
   const style = `height: calc(${textarea.value.clientHeight}px + 4px); max-height: calc(${cssVariables.spacing} * 8);`
   const parentElement = textareaRef.value.parentElement as HTMLLabelElement
   textareaRef.value.setAttribute('style', style)
   parentElement.setAttribute('style', style)
 }
+
 const { textarea, input } = useTextareaAutosize({
   onResize: () => onResize(textarea)
 })
-
-const handleInput = () => {}
 </script>
 
 <template>
@@ -25,7 +33,7 @@ const handleInput = () => {}
       ref="textarea"
       v-model.trim="input"
       name="message"
-      @input="handleInput"
+      @input="() => emit('typed', { message: input })"
     ></textarea>
     <span class="visually-hidden">Type your message</span>
   </label>
