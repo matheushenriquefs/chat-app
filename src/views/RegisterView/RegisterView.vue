@@ -80,9 +80,7 @@ const handleSubmit = () => {
 
 <style lang="scss" scoped>
 h1,
-h2,
-legend,
-label[for='terms-input'] {
+h2 {
   text-align: center;
 }
 
@@ -91,7 +89,9 @@ label[for='terms-input'] {
 }
 
 form {
+  display: flex;
   flex-grow: 1;
+  justify-content: center;
   margin-bottom: 0;
   position: relative;
 }
@@ -127,6 +127,7 @@ form,
 
 .form-wrapper-inner {
   position: absolute;
+  width: 100%;
 }
 
 .terms-fieldset {
@@ -140,5 +141,12 @@ form,
 
 .otp-input {
   margin-bottom: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .form-wrapper {
+    margin: 0 auto;
+    max-width: calc(var(--spacing) * 32);
+  }
 }
 </style>

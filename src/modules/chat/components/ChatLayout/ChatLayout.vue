@@ -17,10 +17,10 @@ const props = withDefaults(defineProps<ChatLayoutProps>(), {
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div v-if="props.visibility.column1" class="col-lg-4 pl-0 pr-0">
+      <div v-if="props.visibility.column1" class="col-lg-4 col-xl-3 pl-0 pr-0">
         <slot name="column-1"></slot>
       </div>
-      <div v-if="props.visibility.column2" class="col-lg-8 pl-0 pr-0">
+      <div v-if="props.visibility.column2" class="col-lg-8 col-xl-9 pl-0 pr-0">
         <slot name="column-2"></slot>
       </div>
     </div>
