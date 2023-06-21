@@ -27,6 +27,7 @@ const handleInput = () => {}
       name="message"
       @input="handleInput"
     ></textarea>
+    <span class="visually-hidden">Type your message</span>
   </label>
 </template>
 

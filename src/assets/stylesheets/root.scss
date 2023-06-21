@@ -3,3 +3,29 @@ body,
 #app {
   height: 100%;
 }
+
+:root {
+  --white: #{$white};
+  --black: #{$black};
+}
+
+// Light theme (Default)
+// Can be forced with data-theme="light"
+[data-theme='light'],
+:root:not([data-theme='dark']) {
+  @include light;
+}
+
+// Dark theme (Auto)
+// Automatically enabled if user has Dark mode enabled
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    @include dark;
+  }
+}
+
+// Dark theme (Forced)
+// Enabled if forced with data-theme="dark"
+[data-theme='dark'] {
+  @include dark;
+}

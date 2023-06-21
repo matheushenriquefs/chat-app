@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<ChatLayoutProps>(), {
 </script>
 
 <template>
-  <main class="container-fluid">
+  <div class="container-fluid">
     <div class="row">
       <div v-if="props.visibility.column1" class="col-lg-4 pl-0 pr-0">
         <slot name="column-1"></slot>
@@ -24,11 +24,11 @@ const props = withDefaults(defineProps<ChatLayoutProps>(), {
         <slot name="column-2"></slot>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-main,
+.container-fluid,
 .row {
   height: 100%;
 }
