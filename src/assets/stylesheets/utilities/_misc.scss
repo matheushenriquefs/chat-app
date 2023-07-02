@@ -6,7 +6,8 @@
   cursor: pointer;
 }
 
-.visually-hidden {
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
   border: 0;
   clip: rect(0, 0, 0, 0);
   display: block;
