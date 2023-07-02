@@ -1,0 +1,77 @@
+/// Applies a light theme to the elements.
+/// @access public
+@mixin light-theme {
+  // Primary colors
+  --primary: #{$primary-700};
+  --primary-hover: #{$primary-800};
+  --primary-focus: #{rgba($primary-700, 0.25)};
+}
+
+/// Applies a dark theme to the elements.
+/// @access public
+@mixin dark-theme {
+  --background-color: #{$grey-900};
+
+  // Primary colors
+  --primary: #{$primary-500};
+  --primary-hover: #{$primary-400};
+  --primary-focus: #{rgba($primary-500, 0.25)};
+
+  // Highlighted text (<mark>)
+  --mark-color: #{$grey-900};
+
+  // Form elements
+  --form-element-background-color: #{$grey-900};
+
+  button,
+  input[type='submit'],
+  input[type='button'],
+  input[type='reset'],
+  [role='button'] {
+    --color: #{$black};
+  }
+}
+
+/// Applies theme styles based on the selected theme.
+/// @param {String} $theme - The theme to apply. Can be 'light' or 'dark'. Default is 'light'.
+/// @content - The styles to apply within the theme block.
+/// @example - Apply the light theme styles to a button.
+///   @themeable {
+///     button {
+///       color: $black;
+///     }
+///   }
+@mixin themeable($theme: light) {
+  @if $theme == light {
+    // Light theme (Default)
+    // Can be forced with data-theme="light"
+    [data-theme='light'],
+    :root:not([data-theme='dark']) {
+      @content;
+    }
+
+    // Light theme (Auto)
+    // Automatically enabled if user has Light mode enabled
+    @media only screen and (prefers-color-scheme: light) {
+      :root:not([data-theme]) {
+        @content;
+      }
+    }
+  }
+
+  @if $theme == dark {
+    // Dark theme (Forced)
+    // Enabled if forced with data-theme="dark"
+    [data-theme='dark'] {
+      @content;
+    }
+
+    // Dark theme (Auto)
+    // Automatically enabled if user has Dark mode enabled
+    @media only screen and (prefers-color-scheme: dark) {
+      :root:not([data-theme]) {
+        @content;
+      }
+    }
+  }
+}
