@@ -62,6 +62,7 @@ const date = computed<string>(() => {
 
 <style lang="scss" scoped>
 article {
+  box-shadow: none;
   column-gap: var(--spacing);
   display: flex;
   margin-top: 0;

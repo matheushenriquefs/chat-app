@@ -36,10 +36,6 @@ const templates = {
     padding: calc(var(--spacing) * 0.5);
     max-width: 95%;
     width: fit-content;
-
-    & > .chat-message-content {
-      color: var(--primary-inverse);
-    }
   }
 }
 

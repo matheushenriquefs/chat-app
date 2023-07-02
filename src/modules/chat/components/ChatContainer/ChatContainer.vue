@@ -113,7 +113,10 @@ watch(lastActiveChatId, (newChatId, oldChatId) => {
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/stylesheets/mixins/tint';
+
 section {
+  background-color: mix($grey-200, $yellow-400, 92.5%);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -121,7 +124,7 @@ section {
 }
 
 header {
-  background-color: var(--card-background-color);
+  background-color: $grey-100;
   column-gap: var(--spacing);
   display: flex;
   order: 1;
@@ -129,7 +132,7 @@ header {
 }
 
 footer {
-  background-color: var(--card-background-color);
+  background-color: $grey-100;
   order: 3;
   padding: calc(var(--spacing) * 0.75);
 }
@@ -173,6 +176,20 @@ form {
     flex: 1 0 auto;
     max-width: 100%;
     width: 75%;
+  }
+}
+
+@include themeable(dark) {
+  header {
+    background-color: var(--card-background-color);
+  }
+
+  section {
+    background-color: shade($grey-900, 53%);
+  }
+
+  footer {
+    background-color: var(--card-background-color);
   }
 }
 </style>
