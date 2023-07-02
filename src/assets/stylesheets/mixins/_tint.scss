@@ -1,0 +1,25 @@
+/// Tints a color by the given percentage.
+///
+/// @access public
+/// @param {Color} $color - The base color to be tinted.
+/// @param {Number} $percentage - The percentage of tint to be applied.
+/// @returns {Color} - The tinted color.
+/// @example - Tint a color by 20%.
+///   tint(#ff0000, 20%);
+///   // #ff3333
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+/// Shades a color by a specified percentage.
+///
+/// @access public
+/// @param {Color} $color - The base color to be shaded.
+/// @param {Number} $percentage - The percentage of shade to apply.
+/// @returns {Color} - The shaded color.
+/// @example - Shade a color by 20%.
+///   shade(#ff0000, 20%);
+///   // #990000
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
