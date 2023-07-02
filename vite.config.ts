@@ -31,5 +31,15 @@ export default defineConfig({
         }
       }
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import "@/assets/stylesheets/variables/colors";
+          @import "@/assets/stylesheets/mixins/theme";
+        `
+      }
+    }
   }
 })
