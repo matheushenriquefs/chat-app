@@ -5,9 +5,12 @@ import { useStepper } from '@vueuse/core'
 
 import { VPhoneNumberInput } from '@/modules/core/components/VPhoneNumberInput'
 import { VOTPInput } from '@/modules/core/components/VOTPInput'
+import type { FilledEvent } from '@/modules/core/components/VOTPInput'
 
 const form = ref({
-  termsAccepted: false
+  termsAccepted: false,
+  phoneNumber: '',
+  verificationCode: ''
 })
 
 const stepper = useStepper({
@@ -17,17 +20,21 @@ const stepper = useStepper({
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt beatae aut recusandae ratione numquam aliquid natus iure.',
     isValid: () => true
   },
-  'phone-number': {
+  phoneNumber: {
     title: 'Verify your phone number',
     subtitle: 'Consequuntur, possimus, accusantium est sequi similique quidem iste',
-    isValid: () => true
+    isValid: () => !!form.value.phoneNumber
   },
-  verification: {
+  verificationCode: {
     title: 'Enter your verification code',
     subtitle: 'Consequuntur, possimus, accusantium est sequi similique quidem iste',
-    isValid: () => true
+    isValid: () => !!form.value.verificationCode && form.value.verificationCode.length === 6
   }
 })
+
+const handleFilled = (event: FilledEvent) => {
+  form.value.verificationCode = event.otp
+}
 
 const handleSubmit = () => {
   if (stepper.current.value.isValid()) stepper.goToNext()
@@ -53,24 +60,31 @@ const handleSubmit = () => {
             <input id="terms-input" type="submit" name="terms" value="Agree and continue" />
           </fieldset>
 
-          <fieldset v-if="stepper.isCurrent('phone-number')" class="phone-number-fieldset">
+          <fieldset v-if="stepper.isCurrent('phoneNumber')" class="phone-number-fieldset">
             <legend>
               {{ stepper.current.value.subtitle }}
             </legend>
-            <VPhoneNumberInput />
-            <input type="submit" value="Next" />
+            <VPhoneNumberInput v-model="form.phoneNumber" />
+            <input
+              type="submit"
+              value="Next"
+              :disabled="!stepper.current.value.isValid()"
+              :aria-disabled="!stepper.current.value.isValid()"
+            />
           </fieldset>
 
-          <fieldset v-if="stepper.isCurrent('verification')" class="verification-fieldset">
+          <fieldset v-if="stepper.isCurrent('verificationCode')" class="verification-code-fieldset">
             <legend>
               {{ stepper.current.value.subtitle }}
             </legend>
-            <VOTPInput
-              id="verification-input"
-              blur-on-filled
-              @filled="(event) => console.log('event', event)"
+            <VOTPInput id="verification-code-input" blur-on-filled @filled="handleFilled" />
+            <input
+              type="submit"
+              name="verification-code"
+              value="Next"
+              :disabled="!stepper.current.value.isValid()"
+              :aria-disabled="!stepper.current.value.isValid()"
             />
-            <input type="submit" name="verification" value="Next" />
           </fieldset>
         </div>
       </form>
@@ -135,7 +149,7 @@ form,
 }
 
 .phone-number-fieldset legend,
-.verification-fieldset legend {
+.verification-code-fieldset legend {
   margin-bottom: var(--spacing);
 }
 
