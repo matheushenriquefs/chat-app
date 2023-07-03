@@ -1,21 +1,30 @@
 <script setup lang="ts">
 /* eslint vuejs-accessibility/label-has-for: 0 */
 import { onMounted } from 'vue'
-import { computedEager } from '@vueuse/core'
+import { computedEager, useVModel } from '@vueuse/core'
 
 import { useAsyncQuerySelector } from '@/modules/core/composables/elements/useAsyncQuerySelector'
 
 type VPhoneNumberInputProps = {
   id?: string
   name?: string
+  disabled?: boolean
+  modelValue?: string
 }
 
 const props = withDefaults(defineProps<VPhoneNumberInputProps>(), {
   id: 'phone-number-input',
-  name: 'phone-number'
+  name: 'phone-number',
+  disabled: false,
+  modelValue: ''
 })
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void
+}>()
+const data = useVModel(props, 'modelValue', emit)
 const labelId = computedEager(() => `${props.id}-label`)
-
+const isNumber = new RegExp(/\d/)
+const keys = ['Tab', 'Backspace', 'ArrowRight', 'ArrowLeft']
 const inputOptions = {
   autocomplete: 'on',
   autofocus: false,
@@ -89,12 +98,23 @@ onMounted(async () => {
     inputElement.setAttribute('aria-labelledby', labelId.value)
   }
 })
+
+const handleKeyboard = (event: KeyboardEvent) => {
+  if (!isNumber.test(event.key) && !keys.includes(event.key)) {
+    event.preventDefault()
+
+    return
+  }
+}
 </script>
 
 <template>
   <div class="phone-number-input">
     <label :id="labelId">Phone number</label>
     <vue-tel-input
+      v-model="data"
+      :disabled="props.disabled"
+      :aria-disabled="props.disabled"
       :input-options="{
         ...inputOptions,
         'aria-describedby': labelId,
@@ -102,6 +122,7 @@ onMounted(async () => {
         name: props.name
       }"
       @open="handleOnOpen"
+      @keydown="handleKeyboard"
     ></vue-tel-input>
   </div>
 </template>
