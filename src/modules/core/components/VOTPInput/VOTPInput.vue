@@ -10,7 +10,7 @@ type VOTPInputProps = {
   blurOnFilled?: boolean
 }
 
-type FilledEvent = {
+export type FilledEvent = {
   otp: string
 }
 
@@ -125,8 +125,9 @@ watch(otp.value, (value) => {
 
   if (isFilled) {
     props.blurOnFilled && handleBlurOnFilled()
-    emitIsFilled()
   }
+
+  emitIsFilled()
 })
 </script>
 
