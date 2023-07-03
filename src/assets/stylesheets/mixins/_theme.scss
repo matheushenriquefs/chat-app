@@ -1,5 +1,5 @@
 /// Applies a light theme to the elements.
-/// 
+///
 /// @access public
 @mixin light-theme {
   // Primary colors
@@ -9,7 +9,7 @@
 }
 
 /// Applies a dark theme to the elements.
-/// 
+///
 /// @access public
 @mixin dark-theme {
   --background-color: #{$grey-900};
@@ -35,7 +35,7 @@
 }
 
 /// Applies theme styles based on the selected theme.
-/// 
+///
 /// @param {String} $theme - The theme to apply. Can be 'light' or 'dark'. Default is 'light'.
 /// @content - The styles to apply within the theme block.
 /// @example - Apply the light theme styles to a button.
