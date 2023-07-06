@@ -11,7 +11,7 @@ type VOTPInputProps = {
 }
 
 export type FilledEvent = {
-  otp: string
+  value: string
 }
 
 const otp: Ref<string[]> = ref([])
@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<VOTPInputProps>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'filled', { otp }: FilledEvent): void
+  (e: 'filled', { value }: FilledEvent): void
 }>()
 
 const keys = ['Tab', 'ArrowRight', 'ArrowLeft']
@@ -100,7 +100,7 @@ const handleKeyboard = (event: KeyboardEvent, index: number) => {
 }
 
 const emitIsFilled = useDebounceFn(() => {
-  emit('filled', { otp: otp.value.join('') })
+  emit('filled', { value: otp.value.join('') })
 }, 500)
 
 /**
