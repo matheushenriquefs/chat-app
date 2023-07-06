@@ -1,3 +1,3 @@
-article {
+dialog:not(article:first-child) {
   padding: calc(var(--spacing) * 0.75);
 }

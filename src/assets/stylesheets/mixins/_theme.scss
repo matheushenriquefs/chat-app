@@ -25,11 +25,11 @@
   // Form elements
   --form-element-background-color: #{$grey-900};
 
-  button,
-  input[type='submit'],
-  input[type='button'],
-  input[type='reset'],
-  [role='button'] {
+  button:not(.secondary),
+  input[type='submit']:not(.secondary),
+  input[type='button']:not(.secondary),
+  input[type='reset']:not(.secondary),
+  [role='button']:not(.secondary) {
     --color: #{$black};
   }
 }
